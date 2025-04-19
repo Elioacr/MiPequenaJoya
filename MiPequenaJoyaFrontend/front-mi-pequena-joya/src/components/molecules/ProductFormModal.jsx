@@ -1,0 +1,155 @@
+import React, { useState } from 'react';
+import axios from '../../services/api';
+import { API_URL } from '../../services/api';
+import { Button, Form, Modal } from 'react-bootstrap';
+
+const categories = [
+    { value: 'anillos', label: 'Anillos' },
+    { value: 'collares', label: 'Collares' },
+    { value: 'pulseras', label: 'Pulseras' },
+    { value: 'pendientes', label: 'Pendientes' },
+    { value: 'relojes', label: 'Relojes' },
+];
+
+const ProductFormModal = ({ show, onHide, onProductAdded }) => {
+    const [product, setProduct] = useState({
+        name: '',
+        description: '',
+        category: '',
+        price: '',
+        stock: '',
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+
+        // Validar que el precio y el stock sean números positivos
+        if (name === 'price' || name === 'stock') {
+            if (value < 0 || isNaN(value)) {
+                return; // No permitir valores negativos o no numéricos
+            }
+        }
+
+        setProduct({ ...product, [name]: value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        // Validación adicional antes de enviar el formulario
+        if (product.price <= 0 || product.stock < 0) {
+            alert('El precio debe ser mayor a 0 y el stock no puede ser negativo.');
+            return;
+        }
+
+        try {
+            await axios.post(`${API_URL}`, product);
+            alert('Producto agregado exitosamente');
+            onHide(); // Cierra el modal
+            onProductAdded(); // Recarga la página
+        } catch (error) {
+            console.error('Error al agregar producto:', error.response?.data || error.message);
+            alert('Error al agregar el producto');
+        }
+    };
+
+    return (
+        <Modal show={show} onHide={onHide} size="lg" centered>
+            {/* Encabezado del modal */}
+            <Modal.Header closeButton>
+                <Modal.Title>Agregar Producto</Modal.Title>
+            </Modal.Header>
+
+            {/* Cuerpo del modal */}
+            <Modal.Body>
+                <Form onSubmit={handleSubmit}>
+                    {/* Campo Nombre */}
+                    <Form.Group className="mb-2" controlId="formProductName">
+                        <Form.Label>Nombre</Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="name"
+                            value={product.name}
+                            onChange={handleChange}
+                            placeholder="Ej. Anillo de compromiso"
+                            required
+                        />
+                    </Form.Group>
+
+                    {/* Campo Descripción */}
+                    <Form.Group className="mb-2" controlId="formProductDescription">
+                        <Form.Label>Descripción</Form.Label>
+                        <Form.Control
+                            as="textarea"
+                            rows={2}
+                            name="description"
+                            value={product.description}
+                            onChange={handleChange}
+                            placeholder="Ej. Un anillo elegante para ocasiones especiales"
+                            required
+                        />
+                    </Form.Group>
+
+                    {/* Campo Categoría */}
+                    <Form.Group className="mb-2" controlId="formProductCategory">
+                        <Form.Label>Categoría</Form.Label>
+                        <Form.Select
+                            name="category"
+                            value={product.category}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="">Selecciona una categoría</option>
+                            {categories.map((category) => (
+                                <option key={category.value} value={category.value}>
+                                    {category.label}
+                                </option>
+                            ))}
+                        </Form.Select>
+                    </Form.Group>
+
+                    {/* Campo Precio */}
+                    <Form.Group className="mb-2" controlId="formProductPrice">
+                        <Form.Label>Precio</Form.Label>
+                        <Form.Control
+                            type="number"
+                            name="price"
+                            value={product.price}
+                            onChange={handleChange}
+                            placeholder="Ej. 1000"
+                            min="0.01" // Asegurar que el precio sea positivo
+                            step="0.01" // Permitir decimales
+                            required
+                        />
+                    </Form.Group>
+
+                    {/* Campo Stock */}
+                    <Form.Group className="mb-2" controlId="formProductStock">
+                        <Form.Label>Stock</Form.Label>
+                        <Form.Control
+                            type="number"
+                            name="stock"
+                            value={product.stock}
+                            onChange={handleChange}
+                            placeholder="Ej. 10"
+                            min="0" // Asegurar que el stock sea positivo
+                            required
+                        />
+                    </Form.Group>
+
+                    {/* Botones del modal */}
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={onHide}>
+                            Cancelar
+                        </Button>
+                        <Button variant="outline-info" type="submit">
+                            Agregar Producto
+                        </Button>
+                    </Modal.Footer>
+                </Form>
+            </Modal.Body>
+        </Modal>
+    );
+};
+
+export default ProductFormModal;
