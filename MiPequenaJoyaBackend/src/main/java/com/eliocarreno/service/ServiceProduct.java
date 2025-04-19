@@ -20,7 +20,7 @@ public class ServiceProduct {
     }
 
     public List<Product> getAll() {
-        return repositoryProduct.findAll();
+        return repositoryProduct.findAllByOrderByIdDesc();
     }
 
     public Product insertProduct(Product producto) {

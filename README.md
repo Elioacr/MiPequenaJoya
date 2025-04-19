@@ -1,10 +1,10 @@
-# 🧵 Mi Pequeña Joya - Guía de Instalación
+# Mi Pequeña Joya - Guía de Instalación
 
-Este proyecto está dividido en tres partes principales: *Base de Datos, **Backend (Java)* y *Frontend (Node.js)*. A continuación, se detallan los pasos necesarios para su correcta instalación y ejecución.
+Este proyecto está dividido en tres partes principales: Base de Datos (MySql), **Backend (Java) y Frontend (Node.js - React). A continuación, se detallan los pasos necesarios para su correcta instalación y ejecución.
 
 ---
 
-## 📦 Base de Datos (MySQL)
+## Base de Datos (MySQL)
 
 ### 1. Instalación de MySQL
 
@@ -18,13 +18,13 @@ Durante la instalación, configura un usuario (root) y una contraseña segura.
 
 Una vez instalado MySQL, puedes crear la base de datos ejecutando el siguiente comando en tu cliente de MySQL (como MySQL Workbench o consola):
 
-sql
+
 CREATE DATABASE bd_mi_pequena_joya;
 
 
 ---
 
-## 🔧 Backend (Java + Maven)
+## Backend (Java + Maven)
 
 ### 1. Instalación de Java 17
 
@@ -34,7 +34,7 @@ Descarga Java 17 desde:
 
 Verifica la instalación con:
 
-bash
+
 java -version
 
 
@@ -46,21 +46,26 @@ Descarga e instala Maven desde:
 
 Verifica la instalación con:
 
-bash
+
 mvn -version
 
+### 3. Modificación de Properties
 
-### 3. Ejecución del proyecto backend
+Ubica el archivo MiPequenaJoyaBackend\src\main\resources\application.properties
+
+Modifica las properties de acuerdo a tu configuracion local
+
+### 4. Ejecución del proyecto backend
 
 Ubica la terminal en el directorio del backend:
 
-bash
+
 cd \MiPequenaJoyaElio\MiPequenaJoyaBackend
 
 
 Compila y ejecuta el proyecto con:
 
-bash
+
 mvn spring-boot:run
 
 
@@ -76,7 +81,7 @@ Descarga Node.js desde:
 
 Verifica la versión instalada:
 
-bash
+
 node -v
 
 
@@ -84,19 +89,25 @@ node -v
 
 NPM se instala junto con Node.js. Verifica su versión con:
 
-bash
+
 npm -v
 
 
 ### 3. Instalación de dependencias
 
-Ubica la terminal en la carpeta del frontend y ejecuta:
+Ubica la terminal en el directorio del backend:
 
-bash
+
+cd \MiPequenaJoyaElio\MiPequenaJoyaFrontend
+
+
+Inicializa el proyecto con:
+
+
 npm install
 
 
 ### 4. Ejecutar el proyecto
 
-bash
+
 npm run dev

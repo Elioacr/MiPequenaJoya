@@ -7,6 +7,7 @@ const DashboardTemplate = ({ children, onAddProduct }) => {
         <div>
             <Header onAddProduct={onAddProduct} />
             <main className="container" style={{ paddingTop: '8rem' }}>
+            <h2 className="text-center text-uppercase fw-bold mb-4">Productos</h2>
                 {children}
             </main>
 

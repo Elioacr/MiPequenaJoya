@@ -32,10 +32,8 @@ public class MiPequenaJoyaApplication {
 	@Bean
     CommandLineRunner initDatabase(RepositoryProduct repositoryProduct) {
         return args -> {
-            // Verificar si ya existen productos en la base de datos
             long count = repositoryProduct.count();
             if (count == 0) {
-                // Crear 8 productos iniciales
                 Product[] products = {
                     new Product("Anillo de compromiso", "Un anillo elegante para ocasiones especiales", "anillos", 1500.0, 10),
                     new Product("Collar de perlas", "Un collar clásico con perlas naturales", "collares", 1200.0, 5),
@@ -47,7 +45,6 @@ public class MiPequenaJoyaApplication {
                     new Product("Pulsera de plata", "Una pulsera versátil de plata", "pulseras", 150.0, 25)
                 };
 
-                // Guardar los productos en la base de datos
                 for (Product product : products) {
                 	repositoryProduct.save(product);
                 }

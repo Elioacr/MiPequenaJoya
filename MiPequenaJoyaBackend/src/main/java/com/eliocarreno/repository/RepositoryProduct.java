@@ -9,5 +9,5 @@ import com.eliocarreno.model.Product;
 
 @Repository
 public interface RepositoryProduct extends CrudRepository<Product, Long> {
-	List<Product> findAll();
+	List<Product> findAllByOrderByIdDesc();
 }

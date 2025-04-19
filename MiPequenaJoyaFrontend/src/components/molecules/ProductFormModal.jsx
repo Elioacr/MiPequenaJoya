@@ -23,10 +23,9 @@ const ProductFormModal = ({ show, onHide, onProductAdded }) => {
     const handleChange = (e) => {
         const { name, value } = e.target;
 
-        // Validar que el precio y el stock sean números positivos
         if (name === 'price' || name === 'stock') {
             if (value < 0 || isNaN(value)) {
-                return; // No permitir valores negativos o no numéricos
+                return;
             }
         }
 
@@ -36,7 +35,6 @@ const ProductFormModal = ({ show, onHide, onProductAdded }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Validación adicional antes de enviar el formulario
         if (product.price <= 0 || product.stock < 0) {
             alert('El precio debe ser mayor a 0 y el stock no puede ser negativo.');
             return;
@@ -45,8 +43,8 @@ const ProductFormModal = ({ show, onHide, onProductAdded }) => {
         try {
             await axios.post(`${API_URL}`, product);
             alert('Producto agregado exitosamente');
-            onHide(); // Cierra el modal
-            onProductAdded(); // Recarga la página
+            onHide();
+            onProductAdded();
         } catch (error) {
             console.error('Error al agregar producto:', error.response?.data || error.message);
             alert('Error al agregar el producto');
@@ -55,15 +53,12 @@ const ProductFormModal = ({ show, onHide, onProductAdded }) => {
 
     return (
         <Modal show={show} onHide={onHide} size="lg" centered>
-            {/* Encabezado del modal */}
             <Modal.Header closeButton>
                 <Modal.Title>Agregar Producto</Modal.Title>
             </Modal.Header>
 
-            {/* Cuerpo del modal */}
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
-                    {/* Campo Nombre */}
                     <Form.Group className="mb-2" controlId="formProductName">
                         <Form.Label>Nombre</Form.Label>
                         <Form.Control
@@ -76,7 +71,6 @@ const ProductFormModal = ({ show, onHide, onProductAdded }) => {
                         />
                     </Form.Group>
 
-                    {/* Campo Descripción */}
                     <Form.Group className="mb-2" controlId="formProductDescription">
                         <Form.Label>Descripción</Form.Label>
                         <Form.Control
@@ -90,7 +84,6 @@ const ProductFormModal = ({ show, onHide, onProductAdded }) => {
                         />
                     </Form.Group>
 
-                    {/* Campo Categoría */}
                     <Form.Group className="mb-2" controlId="formProductCategory">
                         <Form.Label>Categoría</Form.Label>
                         <Form.Select
@@ -108,7 +101,6 @@ const ProductFormModal = ({ show, onHide, onProductAdded }) => {
                         </Form.Select>
                     </Form.Group>
 
-                    {/* Campo Precio */}
                     <Form.Group className="mb-2" controlId="formProductPrice">
                         <Form.Label>Precio</Form.Label>
                         <Form.Control
@@ -117,13 +109,12 @@ const ProductFormModal = ({ show, onHide, onProductAdded }) => {
                             value={product.price}
                             onChange={handleChange}
                             placeholder="Ej. 1000"
-                            min="0.01" // Asegurar que el precio sea positivo
-                            step="0.01" // Permitir decimales
+                            min="0.01"
+                            step="0.01"
                             required
                         />
                     </Form.Group>
 
-                    {/* Campo Stock */}
                     <Form.Group className="mb-2" controlId="formProductStock">
                         <Form.Label>Stock</Form.Label>
                         <Form.Control
@@ -132,12 +123,11 @@ const ProductFormModal = ({ show, onHide, onProductAdded }) => {
                             value={product.stock}
                             onChange={handleChange}
                             placeholder="Ej. 10"
-                            min="0" // Asegurar que el stock sea positivo
+                            min="1"
                             required
                         />
                     </Form.Group>
 
-                    {/* Botones del modal */}
                     <Modal.Footer>
                         <Button variant="secondary" onClick={onHide}>
                             Cancelar

@@ -1,19 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Form, Button, Alert } from 'react-bootstrap';
 
 const SellProductModal = ({ show, onHide, onConfirm }) => {
     const [quantity, setQuantity] = useState('');
-    const [error, setError] = useState(''); // Estado para manejar errores
+    const [error, setError] = useState('');
+
+    useEffect(() => {
+        if (!show) {
+            setQuantity('');
+            setError('');
+        }
+    }, [show]);
 
     const handleConfirm = async () => {
         if (quantity > 0) {
             try {
-                setError(''); // Limpiar errores previos
-                await onConfirm(quantity); // Llamar a la función de confirmación del padre
-                setQuantity(''); // Limpiar el campo después de confirmar
-                onHide(); // Cerrar el modal
+                setError('');
+                await onConfirm(quantity);
+                setQuantity('');
+                onHide();
             } catch (error) {
-                // Mostrar el mensaje de error devuelto por el backend
                 setError(error.response?.data || 'Error al procesar la venta');
             }
         } else {
@@ -23,14 +29,12 @@ const SellProductModal = ({ show, onHide, onConfirm }) => {
 
     return (
         <Modal show={show} onHide={onHide} centered>
-            {/* Encabezado del modal */}
             <Modal.Header closeButton>
                 <Modal.Title>Vender Producto</Modal.Title>
             </Modal.Header>
 
-            {/* Cuerpo del modal */}
             <Modal.Body>
-                {error && <Alert variant="danger">{error}</Alert>} {/* Mensaje de error */}
+                {error && <Alert variant="danger">{error}</Alert>}
 
                 <Form>
                     <Form.Group className="mb-3" controlId="formQuantity">
@@ -47,7 +51,6 @@ const SellProductModal = ({ show, onHide, onConfirm }) => {
                 </Form>
             </Modal.Body>
 
-            {/* Pie del modal */}
             <Modal.Footer>
                 <Button variant="secondary" onClick={onHide}>
                     Cancelar
