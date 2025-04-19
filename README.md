@@ -1,10 +1,10 @@
 # Mi Pequeña Joya - Guía de Instalación
 
-Este proyecto está dividido en tres partes principales: Base de Datos (MySql), **Backend (Java) y Frontend (Node.js - React). A continuación, se detallan los pasos necesarios para su correcta instalación y ejecución.
+Este proyecto está dividido en tres partes principales: _Base de Datos (MySql), \*\*Backend (Java)_ y _Frontend (Node.js - React)_. A continuación, se detallan los pasos necesarios para su correcta instalación y ejecución.
 
 ---
 
-## Base de Datos (MySQL)
+## 📦 Base de Datos (MySQL)
 
 ### 1. Instalación de MySQL
 
@@ -18,13 +18,13 @@ Durante la instalación, configura un usuario (root) y una contraseña segura.
 
 Una vez instalado MySQL, puedes crear la base de datos ejecutando el siguiente comando en tu cliente de MySQL (como MySQL Workbench o consola):
 
-
+```
 CREATE DATABASE bd_mi_pequena_joya;
-
+```
 
 ---
 
-## Backend (Java + Maven)
+## 🔧 Backend (Java + Maven)
 
 ### 1. Instalación de Java 17
 
@@ -34,9 +34,9 @@ Descarga Java 17 desde:
 
 Verifica la instalación con:
 
-
+```
 java -version
-
+```
 
 ### 2. Instalación de Apache Maven
 
@@ -46,8 +46,9 @@ Descarga e instala Maven desde:
 
 Verifica la instalación con:
 
-
+```
 mvn -version
+```
 
 ### 3. Modificación de Properties
 
@@ -59,15 +60,15 @@ Modifica las properties de acuerdo a tu configuracion local
 
 Ubica la terminal en el directorio del backend:
 
-
+```
 cd \MiPequenaJoyaElio\MiPequenaJoyaBackend
-
+```
 
 Compila y ejecuta el proyecto con:
 
-
+```
 mvn spring-boot:run
-
+```
 
 ---
 
@@ -81,33 +82,34 @@ Descarga Node.js desde:
 
 Verifica la versión instalada:
 
-
+```
 node -v
-
+```
 
 ### 2. Instalación de NPM (v11.0.0 o superior)
 
 NPM se instala junto con Node.js. Verifica su versión con:
 
-
+```
 npm -v
-
+```
 
 ### 3. Instalación de dependencias
 
 Ubica la terminal en el directorio del backend:
 
-
+```
 cd \MiPequenaJoyaElio\MiPequenaJoyaFrontend
-
+```
 
 Inicializa el proyecto con:
 
-
+```
 npm install
-
+```
 
 ### 4. Ejecutar el proyecto
 
-
+```
 npm run dev
+```
